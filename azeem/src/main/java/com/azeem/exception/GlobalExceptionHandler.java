@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class GlobalExceptionHandeler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(ControllerException.class)
-    public ResponseEntity<ApiResponse> ControllerExceptionHandler(Exception ex) {
-        return new ResponseEntity<ApiResponse>(new ApiResponse("601", ex.getMessage())
+    public ResponseEntity<ApiResponse> controllerExceptionHandler(ControllerException ex) {
+        return new ResponseEntity<ApiResponse>(new ApiResponse( ex.getErrocode() , ex.getMessage())
                 , HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public ResponseEntity<ApiResponse> methodNotSupported(Exception ex){
-        return new ResponseEntity<ApiResponse>(new ApiResponse("602",ex.getMessage())
-        , HttpStatus.METHOD_NOT_ALLOWED);
+    public ResponseEntity<ApiResponse> methodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
+        return new ResponseEntity<>(new ApiResponse("602", ex.getMessage()), HttpStatus.METHOD_NOT_ALLOWED);
     }
+
 }

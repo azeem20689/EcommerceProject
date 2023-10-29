@@ -1,26 +1,36 @@
 package com.azeem.entities;
 
+import com.azeem.repo.RoleRepo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "azeem_user")
+@Builder
+@Table(name = "UserTable")
 public class User {
+
+
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String email;
+    private String username;
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "cust_id", referencedColumnName = "id")
-            , inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Set<Roles> roles = new HashSet<>();
+    private String firstname;
+    private String lastname;
+    private String email;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name= "USER_ROLE" , joinColumns = @JoinColumn(name = "USER_ID")
+    , inverseJoinColumns = @JoinColumn(name = "USER_ROLE")
+    )
+    private Set<Role> role;
+
 }

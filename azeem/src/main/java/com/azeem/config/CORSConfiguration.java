@@ -1,5 +1,6 @@
 package com.azeem.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -12,6 +13,7 @@ public class CORSConfiguration {
     private static final String PUT = "PUT";
     private static final String DELETE = "DELETE";
 
+    @Bean
     public WebMvcConfigurer corsConfiguration(){
         return new WebMvcConfigurer() {
             @Override
